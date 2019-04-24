@@ -1,0 +1,279 @@
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #333;
+  padding: 0;
+  margin: 0;
+  /* width: 2000px; */
+  -webkit-text-size-adjust:100%;
+  -webkit-font-feature-settings:"kern" 1;
+  -moz-font-feature-settings:"kern" 1;
+  -o-font-feature-settings:"kern" 1;
+  font-feature-settings:"kern" 1;
+  font-kerning:normal;
+ min-height:100vh;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: underline;
+}
+header {
+  background-color: #454545;
+  position: sticky;
+  height: 44px;
+  color: #eee;
+  width: 100%;
+  box-sizing: border-box;
+  top: 0;
+  z-index: 1;
+}
+header a {
+  color: #eee;
+  text-decoration: underline;
+}
+
+header > h1 {
+  margin: 12px;
+  font-weight: normal;
+  font-size: 1.5em;
+  font-family: monospace;
+  display: inline-block;
+}
+header > h1 a {
+  text-decoration: none;
+}
+header > h1 a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+body > header > * {
+  position: absolute;
+}
+
+.headings {
+  top: 7px;
+  left: 484px;
+  position: absolute;
+}
+
+.version sup {
+  color: gold;
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+}
+
+article {
+  position: relative;
+}
+.category {
+  background-color: #efefef;
+  padding: 3px;
+  margin: 2px 0;
+  color: #191970;
+  text-indent: 10px;
+  text-align: left;
+  font-size: 22px;
+}
+.feature {
+  width: 480px;
+  min-width: 480px;
+  max-width: 480px;
+}
+.result,
+.version {
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  width: 65px;
+  min-width: 65px;
+}
+.version {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 3px 0;
+  color: white;
+  position: relative;
+  vertical-align: top;
+  line-height: 16px;
+  background-color: #5b5bef;
+}
+.result {
+  line-height: 21px;
+  padding: 0;
+}
+sub {
+  display: block;
+  font-size: 9px;
+  font-weight: normal;
+  bottom: -3px;
+  font-family: serif;
+  line-height: 8px;
+  margin-top: 3px;
+}
+.sub {
+  text-indent: 10px;
+  font-weight: bold;
+  color: #191970;
+  border-bottom: solid 1px;
+  padding-top: 10px;
+}
+.subsub {
+  text-indent: 10px;
+  color: #aaa;
+}
+
+.Yes {
+  background-color: #026e00;
+}
+.No {
+  background-color: red;
+}
+.Error {
+  background-color: #dd0000;
+}
+
+.fn {
+  font-family: monospace;
+  text-indent: 0;
+  background-color: #454545;
+  border-radius: 6px;
+  padding: 6px;
+  position: absolute;
+  display: none;
+  margin-left: 8px;
+  text-align: left;
+  color: #eee;
+  z-index: 99;
+}
+.code {
+  white-space: pre;
+  margin: 0 15px;
+}
+.info {
+  border-radius: 9px;
+  background-color: #eee;
+  color: #aaa;
+  float: right;
+  text-align: center;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  text-indent: 0;
+  line-height: 18px;
+  cursor: pointer;
+}
+.info:hover .fn {
+  display: inline-block;
+}
+
+table.results {
+  margin-bottom: 20px;
+}
+.hash {
+  position: absolute;
+  margin-top: -46px;
+}
+
+/*!
+ * "Fork me on GitHub" CSS ribbon v0.2.2 | MIT License
+ * https://github.com/simonwhitaker/github-fork-ribbon-css
+*/
+
+.github-fork {
+  width: 12.1em;
+  height: 12.1em;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  pointer-events: none;
+  font-size: 13px;
+  text-decoration: none;
+  text-indent: -999999px;
+}
+
+.github-fork:hover, .github-fork:active {
+  background-color: rgba(0, 0, 0, 0.0);
+}
+
+.github-fork:before, .github-fork:after {
+  /* The right and left classes determine the side we attach our banner to */
+  position: fixed;
+  display: block;
+  width: 15.38em;
+  height: 1.54em;
+  
+  top: 3.23em;
+  right: -3.23em;
+  
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.github-fork:before {
+  content: "";
+
+  /* Add a bit of padding to give some substance outside the "stitching" */
+  padding: .38em 0;
+
+  /* Set the base colour */
+  background-color: #454545;
+
+  /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.15)));
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+  background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+
+  /* Add a drop shadow */
+  -webkit-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.5);
+
+  pointer-events: auto;
+}
+
+.github-fork:after {
+  /* Set the text from the data-ribbon attribute */
+  content: attr(data-ribbon);
+
+  /* Set the text properties */
+  color: #fff;
+  font: 700 1em "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.54em;
+  text-decoration: none;
+  text-shadow: 0 -.08em rgba(0, 0, 0, 0.5);
+  text-align: center;
+  text-indent: 0;
+
+  /* Set the layout properties */
+  padding: .15em 0;
+  margin: .15em 0;
+
+  /* Add "stitching" effect */
+  border-width: .08em 0;
+  border-style: dotted;
+  border-color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}

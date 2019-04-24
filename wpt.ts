@@ -1,0 +1,46 @@
+import { runTests } from "./lib/runner.ts";
+import build from "./build.ts";
+import ignore from "./ignore.json";
+
+console.log(`use deno version: ${Deno.version.deno}`);
+
+const decoder = new TextDecoder("utf-8");
+
+switch (Deno.args[1]) {
+  case "serve":
+    Deno.run({
+      args: [
+        "deno",
+        "--allow-net",
+        "https://deno.land/std/http/file_server.ts"
+      ],
+      stdout: "inherit"
+    });
+    break;
+  case "run":
+    const specs = Deno.readDirSync("./spec").filter(
+      x => x.isDirectory() && !ignore.includes(x.name)
+    );
+
+    for (const spec of specs) {
+      console.log(spec.path);
+      const files = Deno.readDirSync(spec.path).filter(
+        x => x.name.substr(-7) === ".any.js"
+      );
+
+      for (const file of files) {
+        const content = Deno.readFileSync(file.path);
+        const code: string = decoder.decode(content);
+        setup(`${spec.name}›${file.name}›`);
+        eval(code);
+      }
+    }
+
+    runTests();
+    break;
+  case "build":
+    build();
+    break;
+  default:
+    console.log(Deno.args);
+}
