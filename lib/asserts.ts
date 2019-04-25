@@ -6,7 +6,6 @@ import {
 declare global {
   function assert_true(actual: boolean, description?: string): void;
   function assert_false(actual: boolean, description?: string): void;
-  function assert_equals(actual: boolean, description?: string): void;
   function assert_equals(
     actual: any,
     expected: any,
@@ -30,7 +29,7 @@ function assert_false(actual: boolean, description?: string) {
 }
 expose(assert_false, "assert_false");
 
-function same_value(x: any, y: any) {
+function same_value(x: any, y: any): boolean {
   if (y !== y) {
     //NaN case
     return x !== x;
@@ -508,7 +507,7 @@ expose(assert_any, "assert_any");
 /*
  * Utility functions
  */
-function assert(expected_true: boolean, error: string) {
+function assert(expected_true: boolean, error?: string) {
   _assert(expected_true, error);
 }
 
