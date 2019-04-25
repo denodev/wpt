@@ -40,7 +40,7 @@ switch (Deno.args[1]) {
     break;
   case "test":
     if (!Deno.args[2]) {
-      console.log('Please input a file name. Usage: wpt test <filename>');
+      console.log("Please input a file name. Usage: wpt test <filename>");
       Deno.exit(1);
     }
 

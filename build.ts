@@ -10,11 +10,11 @@ const encoder = new TextEncoder();
 const decoder = new TextDecoder("utf-8");
 
 function result(nodeVersion: string, path: string): string {
-  var result = get(results, nodeVersion);
+  let result = get(results, nodeVersion);
   if (result === undefined) return "";
   result = get(result, KEY, path);
 
-  var title =
+  const title =
     result === true
       ? "Test passed"
       : typeof result === "string"
@@ -26,7 +26,7 @@ function result(nodeVersion: string, path: string): string {
 }
 
 function percent(nodeVersion: string): number {
-  var data = get(results, nodeVersion, KEY);
+  const data = get(results, nodeVersion, KEY);
   return data ? Math.floor(data._percent * 100) : 0;
 }
 

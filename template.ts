@@ -42,7 +42,9 @@ function renderHeaders(
   return Object.entries(headers)
     .map(([nodeVersion, details]) => {
       return html`
-          <th class="version">${details.version}<sub>${percent(nodeVersion)}%</sub></th>
+          <th class="version">${details.version}<sub>${percent(
+        nodeVersion
+      )}%</sub></th>
       `;
     })
     .join("");
@@ -129,13 +131,15 @@ export function render({
                               </div>
                             </div>
                           </td>
-                          ${Object.keys(headers).map(
-                            nodeVersion => html`
+                          ${Object.keys(headers)
+                            .map(
+                              nodeVersion => html`
                               <td class="result">
                                 ${result(nodeVersion, obj3.path)}
                               </td>
                             `
-                          ).join("")}
+                            )
+                            .join("")}
                         </tr>
                       `;
                     })

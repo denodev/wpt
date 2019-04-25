@@ -38,7 +38,7 @@ const replacements = {
 export function objectifiedTesters() {
   const decoder = new TextDecoder("utf-8");
   const content = Deno.readFileSync("./testers.json");
-  const _testers = JSON.parse(decoder.decode(content))
+  const _testers = JSON.parse(decoder.decode(content));
   var testers = {};
   Object.keys(_testers).forEach(path => {
     set(testers, path, { path: path, code: _testers[path] });
