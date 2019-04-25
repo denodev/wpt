@@ -16,7 +16,92 @@ declare global {
     expected: any,
     description?: string
   ): void;
-  // TODO
+  function assert_object_equals(
+    actual: object,
+    expected: object,
+    description?: string
+  ): void;
+  function assert_array_equals(
+    actual: any[],
+    expected: any[],
+    description?: string
+  ): void;
+  function assert_array_approx_equals(
+    actual: number[],
+    expected: number[],
+    epsilon: number,
+    description?: string
+  ): void;
+  function assert_approx_equals(
+    actual: number,
+    expected: number,
+    epsilon: number,
+    description?: string
+  ): void;
+  function assert_less_than(
+    actual: number,
+    expected: number,
+    description?: string
+  ): void;
+  function assert_greater_than(
+    actual: number,
+    expected: number,
+    description?: string
+  ): void;
+  function assert_between_exclusive(
+    actual: number,
+    lower: number,
+    upper: number,
+    description?: string
+  ): void;
+  function assert_less_than_equal(
+    actual: number,
+    expected: number,
+    description?: string
+  ): void;
+  function assert_greater_than_equal(
+    actual: number,
+    expected: number,
+    description?: string
+  ): void;
+  function assert_between_inclusive(
+    actual: number,
+    lower: number,
+    upper: number,
+    description?: string
+  ): void;
+  function assert_regexp_match(
+    actual: any,
+    expected: RegExp,
+    description?: string
+  ): void;
+  function assert_class_string(
+    object: any,
+    class_string: string,
+    description?: string
+  ): void;
+  function assert_own_property(
+    object: object,
+    property_name: string,
+    description?: string
+  ): void;
+  function assert_not_own_property(
+    object: object,
+    property_name: string,
+    description?: string
+  ): void;
+  function assert_readonly(
+    object: { [x: string]: any },
+    property_name: string,
+    description?: string
+  ): void;
+  function assert_throws(code: any, func: Function, description?: string): void;
+  function assert_any(
+    assert_func: Function,
+    actual: any,
+    expected_array: any[]
+  ): void;
+  function assert(expected_true: boolean, error?: string): void;
 }
 
 function assert_true(actual: boolean, description?: string): void {
@@ -29,7 +114,7 @@ function assert_false(actual: boolean, description?: string) {
 }
 expose(assert_false, "assert_false");
 
-function same_value(x: any, y: any): boolean {
+function same_value<T>(x: any, y: any): boolean {
   if (y !== y) {
     //NaN case
     return x !== x;
@@ -41,7 +126,7 @@ function same_value(x: any, y: any): boolean {
   return x === y;
 }
 
-function assert_equals(actual: any, expected: any, description: string) {
+function assert_equals(actual: any, expected: any, description?: string): void {
   /*
    * Test if two primitives are equal or two objects
    * are the same object
@@ -60,7 +145,11 @@ function assert_equals(actual: any, expected: any, description: string) {
 }
 expose(assert_equals, "assert_equals");
 
-function assert_not_equals(actual: any, expected: any, description?: string) {
+function assert_not_equals(
+  actual: any,
+  expected: any,
+  description?: string
+): void {
   /*
    * Test if two primitives are unequal or two objects
    * are different objects
@@ -69,7 +158,11 @@ function assert_not_equals(actual: any, expected: any, description?: string) {
 }
 expose(assert_not_equals, "assert_not_equals");
 
-function assert_in_array(actual, expected, description) {
+function assert_in_array(
+  actual: any,
+  expected: any[],
+  description?: string
+): void {
   assert(
     expected.indexOf(actual) != -1,
     `value ${actual} not in array ${expected}`
@@ -77,17 +170,20 @@ function assert_in_array(actual, expected, description) {
 }
 expose(assert_in_array, "assert_in_array");
 
-function assert_object_equals(actual, expected, description) {
+function assert_object_equals(
+  actual: object,
+  expected: object,
+  description?: string
+): void {
   assert(
     typeof actual === "object" && actual !== null,
     `value is ${actual}, expected object`
   );
   //This needs to be improved a great deal
-  function check_equal(actual, expected, stack) {
+  function check_equal(actual: any, expected: any, stack: any[]) {
     stack.push(actual);
 
-    var p;
-    for (p in actual) {
+    for (let p in actual) {
       assert(expected.hasOwnProperty(p), `unexpected property ${p}`);
 
       if (typeof actual[p] === "object" && actual[p] !== null) {
@@ -101,7 +197,8 @@ function assert_object_equals(actual, expected, description) {
         );
       }
     }
-    for (p in expected) {
+
+    for (let p in expected) {
       assert(actual.hasOwnProperty(p), `expected property ${p} missing`);
     }
     stack.pop();
@@ -110,7 +207,11 @@ function assert_object_equals(actual, expected, description) {
 }
 expose(assert_object_equals, "assert_object_equals");
 
-function assert_array_equals(actual, expected, description) {
+function assert_array_equals(
+  actual: any[],
+  expected: any[],
+  description?: string
+): void {
   assert(
     typeof actual === "object" && actual !== null && "length" in actual,
     `value is ${actual}, expected array`
@@ -120,7 +221,7 @@ function assert_array_equals(actual, expected, description) {
     `lengths differ, expected ${expected} got ${actual}`
   );
 
-  for (var i = 0; i < actual.length; i++) {
+  for (let i = 0; i < actual.length; i++) {
     assert(
       actual.hasOwnProperty(i) === expected.hasOwnProperty(i),
       `property ${i}, property expected to be ${expected} but was ${actual}`
@@ -133,7 +234,12 @@ function assert_array_equals(actual, expected, description) {
 }
 expose(assert_array_equals, "assert_array_equals");
 
-function assert_array_approx_equals(actual, expected, epsilon, description) {
+function assert_array_approx_equals(
+  actual: number[],
+  expected: number[],
+  epsilon: number,
+  description?: string
+): void {
   /*
    * Test if two primitive arrays are equal within +/- epsilon
    */
@@ -142,7 +248,7 @@ function assert_array_approx_equals(actual, expected, epsilon, description) {
     `lengths differ, expected ${expected} got ${actual}`
   );
 
-  for (var i = 0; i < actual.length; i++) {
+  for (let i = 0; i < actual.length; i++) {
     assert(
       actual.hasOwnProperty(i) === expected.hasOwnProperty(i),
       `property ${i}, property expected to be ${expected} but was ${actual}`
@@ -159,7 +265,12 @@ function assert_array_approx_equals(actual, expected, epsilon, description) {
 }
 expose(assert_array_approx_equals, "assert_array_approx_equals");
 
-function assert_approx_equals(actual, expected, epsilon, description) {
+function assert_approx_equals(
+  actual: number,
+  expected: number,
+  epsilon: number,
+  description?: string
+): void {
   /*
    * Test if two primitive numbers are equal within +/- epsilon
    */
@@ -175,7 +286,11 @@ function assert_approx_equals(actual, expected, epsilon, description) {
 }
 expose(assert_approx_equals, "assert_approx_equals");
 
-function assert_less_than(actual, expected, description) {
+function assert_less_than(
+  actual: number,
+  expected: number,
+  description?: string
+): void {
   /*
    * Test if a primitive number is less than another
    */
@@ -191,7 +306,11 @@ function assert_less_than(actual, expected, description) {
 }
 expose(assert_less_than, "assert_less_than");
 
-function assert_greater_than(actual, expected, description) {
+function assert_greater_than(
+  actual: number,
+  expected: number,
+  description?: string
+): void {
   /*
    * Test if a primitive number is greater than another
    */
@@ -207,7 +326,12 @@ function assert_greater_than(actual, expected, description) {
 }
 expose(assert_greater_than, "assert_greater_than");
 
-function assert_between_exclusive(actual, lower, upper, description) {
+function assert_between_exclusive(
+  actual: number,
+  lower: number,
+  upper: number,
+  description?: string
+): void {
   /*
    * Test if a primitive number is between two others
    */
@@ -223,7 +347,11 @@ function assert_between_exclusive(actual, lower, upper, description) {
 }
 expose(assert_between_exclusive, "assert_between_exclusive");
 
-function assert_less_than_equal(actual, expected, description) {
+function assert_less_than_equal(
+  actual: number,
+  expected: number,
+  description?: string
+): void {
   /*
    * Test if a primitive number is less than or equal to another
    */
@@ -239,7 +367,11 @@ function assert_less_than_equal(actual, expected, description) {
 }
 expose(assert_less_than_equal, "assert_less_than_equal");
 
-function assert_greater_than_equal(actual, expected, description) {
+function assert_greater_than_equal(
+  actual: number,
+  expected: number,
+  description?: string
+): void {
   /*
    * Test if a primitive number is greater than or equal to another
    */
@@ -255,7 +387,12 @@ function assert_greater_than_equal(actual, expected, description) {
 }
 expose(assert_greater_than_equal, "assert_greater_than_equal");
 
-function assert_between_inclusive(actual, lower, upper, description) {
+function assert_between_inclusive(
+  actual: number,
+  lower: number,
+  upper: number,
+  description?: string
+): void {
   /*
    * Test if a primitive number is between to two others or equal to either of them
    */
@@ -271,7 +408,11 @@ function assert_between_inclusive(actual, lower, upper, description) {
 }
 expose(assert_between_inclusive, "assert_between_inclusive");
 
-function assert_regexp_match(actual, expected, description) {
+function assert_regexp_match(
+  actual: any,
+  expected: RegExp,
+  description?: string
+): void {
   /*
    * Test if a string (actual) matches a regexp (expected)
    */
@@ -279,7 +420,11 @@ function assert_regexp_match(actual, expected, description) {
 }
 expose(assert_regexp_match, "assert_regexp_match");
 
-function assert_class_string(object, class_string, description) {
+function assert_class_string(
+  object: any,
+  class_string: string,
+  description?: string
+): void {
   assert_equals(
     {}.toString.call(object),
     `[object ${class_string}]`,
@@ -288,7 +433,11 @@ function assert_class_string(object, class_string, description) {
 }
 expose(assert_class_string, "assert_class_string");
 
-function assert_own_property(object, property_name, description) {
+function assert_own_property(
+  object: object,
+  property_name: string,
+  description?: string
+): void {
   assert(
     object.hasOwnProperty(property_name),
     `expected property ${property_name} missing`
@@ -296,7 +445,11 @@ function assert_own_property(object, property_name, description) {
 }
 expose(assert_own_property, "assert_own_property");
 
-function assert_not_own_property(object, property_name, description) {
+function assert_not_own_property(
+  object: object,
+  property_name: string,
+  description?: string
+): void {
   assert(
     !object.hasOwnProperty(property_name),
     `unexpected property ${property_name} is found on object`
@@ -304,8 +457,12 @@ function assert_not_own_property(object, property_name, description) {
 }
 expose(assert_not_own_property, "assert_not_own_property");
 
-function _assert_inherits(name) {
-  return function(object, property_name, description) {
+function _assert_inherits(name: string) {
+  return function(
+    object: object,
+    property_name: string,
+    description?: string
+  ): void {
     assert(
       typeof object === "object" || typeof object === "function",
       "provided value is not an object"
@@ -330,8 +487,12 @@ function _assert_inherits(name) {
 expose(_assert_inherits("assert_inherits"), "assert_inherits");
 expose(_assert_inherits("assert_idl_attribute"), "assert_idl_attribute");
 
-function assert_readonly(object, property_name, description) {
-  var initial_value = object[property_name];
+function assert_readonly(
+  object: { [x: string]: any },
+  property_name: string,
+  description?: string
+): void {
+  const initial_value = object[property_name];
   try {
     //Note that this can have side effects in the case where
     //the property has PutForwards
@@ -353,7 +514,7 @@ expose(assert_readonly, "assert_readonly");
  * @param {Function} func Function which should throw.
  * @param {string} description Error description for the case that the error is not thrown.
  */
-function assert_throws(code, func, description) {
+function assert_throws(code: any, func: Function, description?: string): void {
   try {
     func.call(this);
     assert(false, `${func.name} did not throw`);
@@ -382,7 +543,7 @@ function assert_throws(code, func, description) {
       return;
     }
 
-    var code_name_map = {
+    const code_name_map = {
       INDEX_SIZE_ERR: "IndexSizeError",
       HIERARCHY_REQUEST_ERR: "HierarchyRequestError",
       WRONG_DOCUMENT_ERR: "WrongDocumentError",
@@ -407,9 +568,9 @@ function assert_throws(code, func, description) {
       DATA_CLONE_ERR: "DataCloneError"
     };
 
-    var name = code in code_name_map ? code_name_map[code] : code;
+    const name = code in code_name_map ? code_name_map[code] : code;
 
-    var name_code_map = {
+    const name_code_map = {
       IndexSizeError: 1,
       HierarchyRequestError: 3,
       WrongDocumentError: 4,
@@ -451,7 +612,7 @@ function assert_throws(code, func, description) {
       );
     }
 
-    var required_props = { code: name_code_map[name], name: undefined };
+    const required_props = { code: name_code_map[name], name: undefined };
 
     if (
       required_props.code === 0 ||
@@ -468,7 +629,7 @@ function assert_throws(code, func, description) {
     //in.  It might be an instanceof the appropriate interface on some
     //unknown other window.  TODO: Work around this somehow?
 
-    for (var prop in required_props) {
+    for (let prop in required_props) {
       assert(
         prop in e && e[prop] == required_props[prop],
         `${func} threw ${e} that is not a DOMException ${code}: property ${prop} is equal to ${
@@ -486,10 +647,14 @@ function assert_unreached(description) {
 
 expose(assert_unreached, "assert_unreached");
 
-function assert_any(assert_func, actual, expected_array) {
-  var args = [].slice.call(arguments, 3);
-  var errors = [];
-  var passed = false;
+function assert_any(
+  assert_func: Function,
+  actual: any,
+  expected_array: any[]
+): void {
+  const args = [].slice.call(arguments, 3);
+  const errors = [];
+  let passed = false;
   Array.prototype.forEach.call(expected_array, function(expected) {
     try {
       assert_func.apply(this, [actual, expected].concat(args));
@@ -507,10 +672,10 @@ expose(assert_any, "assert_any");
 /*
  * Utility functions
  */
-function assert(expected_true: boolean, error?: string) {
+function assert(expected_true: boolean, error?: string): void {
   _assert(expected_true, error);
 }
 
-function expose<T>(object: T, name: string) {
+function expose<T>(object: T, name: string): void {
   window[name] = object;
 }
