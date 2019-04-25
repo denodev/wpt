@@ -136,12 +136,16 @@ export async function runTestsSerial(tests: TestDefinition[]): Promise<void> {
  * Runs specified test cases.
  * Parallel execution can be enabled via the boolean option; default: serial.
  */
-export async function runTests(): Promise<void> {
+export async function runTests(saveJson = false): Promise<void> {
   console.log(`running ${tests.length} tests`);
   await runTestsSerial(tests);
   printResults();
-  reportJson();
-  reportTesters();
+
+  if (saveJson) {
+    reportJson();
+    reportTesters();
+  }
+
   if (result._failed) {
     // Use setTimeout to avoid the error being ignored due to unhandled
     // promise rejections being swallowed.

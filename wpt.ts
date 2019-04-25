@@ -36,7 +36,18 @@ switch (Deno.args[1]) {
       }
     }
 
-    runTests();
+    runTests(true);
+    break;
+  case "test":
+    if (!Deno.args[2]) {
+      console.log('Please input a file name. Usage: wpt test <filename>');
+      Deno.exit(1);
+    }
+
+    const content = Deno.readFileSync(Deno.args[2]);
+    const code: string = decoder.decode(content);
+    eval(code);
+    runTests(false);
     break;
   case "build":
     build();
