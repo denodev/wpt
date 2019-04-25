@@ -1,3 +1,3 @@
-declare const self: typeof window;
-
 window["self"] = window;
+window["i"] = undefined;
+window["param"] = undefined;
