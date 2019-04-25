@@ -98,7 +98,7 @@ function assert_object_equals(actual, expected, description) {
       } else {
         assert(
           same_value(actual[p], expected[p]),
-          "property ${p} expected ${expected} got ${actual}"
+          `property ${p} expected ${expected} got ${actual}`
         );
       }
     }
@@ -128,7 +128,7 @@ function assert_array_equals(actual, expected, description) {
     );
     assert(
       same_value(expected[i], actual[i]),
-      "property ${i}, expected ${expected} but got ${actual}"
+      `property ${i}, expected ${expected} but got ${actual}`
     );
   }
 }
