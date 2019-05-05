@@ -1,3 +1,3 @@
-#!/usr/bin/env deno --allow-net --allow-read --allow-write --allow-run
+#!/usr/bin/env deno run --allow-net --allow-read --allow-write --allow-run
 
 import './wpt.ts';
