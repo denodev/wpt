@@ -27,13 +27,15 @@ async function main() {
       );
 
       for (const spec of specs) {
-        console.log(spec.path);
-        const files = Deno.readDirSync(spec.path).filter(
+        const specPath = `./spec/${spec.name}`;
+        console.log(specPath);
+        const files = Deno.readDirSync(specPath).filter(
           x => x.name.substr(-7) === ".any.js"
         );
 
         for (const file of files) {
-          const content = Deno.readFileSync(file.path);
+          const filePath = `./spec/${spec.name}/${file.name}`;
+          const content = Deno.readFileSync(filePath);
           const code: string = decoder.decode(content);
           setup(`${spec.name}›${file.name}›`);
           eval(code);
