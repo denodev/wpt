@@ -14,8 +14,6 @@ const tests: TestDefinition[] = [];
 export interface TestResult {
   _passed: number;
   _failed: number;
-  _count: number;
-  _percent: number;
   [key: string]: string | boolean | number | undefined;
 }
 
@@ -33,8 +31,6 @@ export type Result = {
 const result: TestResult = {
   _passed: 0,
   _failed: 0,
-  _count: 0,
-  _percent: 0
 };
 
 const testers: Testers = {};
@@ -75,7 +71,6 @@ window["async_test"] = window["test"];
 
 function addTest(fn: TestFunction, name: string): void {
   result[name] = undefined;
-  result._count++;
   testers[name] = fn.toString();
 }
 
@@ -84,7 +79,6 @@ const GREEN_OK = green("ok");
 
 function reportJson(): void {
   const { deno, v8, typescript } = Deno.version;
-  result._percent = result._passed / result._count;
   const json: Result = {
     version: deno,
     v8,

@@ -6,13 +6,17 @@ const headers = {};
 
 const KEY = "result";
 
+const [testers, count] = objectifiedTesters();
+
 const encoder = new TextEncoder();
 const decoder = new TextDecoder("utf-8");
 
 function result(nodeVersion: string, path: string): string {
   let result = get(results, nodeVersion);
-  if (result === undefined) return "";
+  if (result === undefined) return "-";
+
   result = get(result, KEY, path);
+  if (result === undefined) return "-";
 
   const title =
     result === true
@@ -27,7 +31,7 @@ function result(nodeVersion: string, path: string): string {
 
 function percent(nodeVersion: string): number {
   const data = get(results, nodeVersion, KEY);
-  return data ? Math.floor(data._percent * 100) : 0;
+  return data ? Math.floor(data._passed / count * 100) : 0;
 }
 
 function compare(x1: string, x2: string): number {
@@ -64,7 +68,6 @@ export default function build() {
     };
   }
 
-  const testers = objectifiedTesters();
   const html = render({ headers, testers, result, percent });
   Deno.writeFileSync("./index.html", encoder.encode(html));
 }
