@@ -13,7 +13,7 @@ const decoder = new TextDecoder("utf-8");
 
 function result(nodeVersion: string, path: string): string {
   let result = get(results, nodeVersion);
-  if (result === undefined) return "-";
+  if (result === undefined) return "";
 
   result = get(result, KEY, path);
   if (result === undefined) {
