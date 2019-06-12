@@ -16,7 +16,9 @@ function result(nodeVersion: string, path: string): string {
   if (result === undefined) return "-";
 
   result = get(result, KEY, path);
-  if (result === undefined) return "-";
+  if (result === undefined) {
+    return '<div class="No">-</div>';
+  }
 
   const title =
     result === true
