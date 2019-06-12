@@ -52,6 +52,7 @@ async function main() {
 
       const content = Deno.readFileSync(Deno.args[2]);
       const code: string = decoder.decode(content);
+      setup();
       eval(code);
       runTests(false);
       break;

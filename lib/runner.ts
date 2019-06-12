@@ -42,7 +42,7 @@ declare global {
   function setup(spec?: string): void;
 }
 
-window["setup"] = function(spec?: string): void {
+window["setup"] = function(spec: string = ''): void {
   window["test"] = function test(fn: TestFunction, name?: string): void {
     if (!name) {
       name = fn.name;
@@ -56,18 +56,6 @@ window["setup"] = function(spec?: string): void {
   window["promise_test"] = window["test"];
   window["async_test"] = window["test"];
 };
-
-window["test"] = function test(fn: TestFunction, name?: string): void {
-  if (!name) {
-    name = fn.name;
-  }
-
-  tests.push({ fn, name });
-  addTest(fn, name);
-};
-
-window["promise_test"] = window["test"];
-window["async_test"] = window["test"];
 
 function addTest(fn: TestFunction, name: string): void {
   result[name] = undefined;
