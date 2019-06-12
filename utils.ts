@@ -1,3 +1,5 @@
+import { TemplateTtesters } from "./template.ts";
+
 // tries to traverse an object to a given path
 // example: get(myObj, 'foo', 'bar')
 export function get(obj: object, path: string, more?: string): any {
@@ -35,15 +37,17 @@ const replacements = {
   "/": "&#x2F;"
 };
 
-export function objectifiedTesters() {
+export function objectifiedTesters(): [TemplateTtesters, number] {
   const decoder = new TextDecoder("utf-8");
   const content = Deno.readFileSync("./testers.json");
   const _testers = JSON.parse(decoder.decode(content));
-  var testers = {};
+  const testers = {};
+  let count: number = 0;
   Object.keys(_testers).forEach(path => {
     set(testers, path, { path: path, code: _testers[path] });
+    count++;
   });
-  return testers;
+  return [testers, count];
 }
 
 export function escape(str: string): string {
