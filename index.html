@@ -21,40 +21,561 @@
     <h1><a href="#top">Web-Platform-Tests for Deno</a></h1>
     <table class="headings">
       <tr>
-          <th class="version">0.8.0<sub>62%</sub></th>
+          <th class="version">0.8.0<sub>63%</sub></th>
       
-          <th class="version">0.7.0<sub>62%</sub></th>
+          <th class="version">0.7.0<sub>63%</sub></th>
       
-          <th class="version">0.6.0<sub>62%</sub></th>
+          <th class="version">0.6.0<sub>63%</sub></th>
       
-          <th class="version">0.5.0<sub>62%</sub></th>
+          <th class="version">0.5.0<sub>63%</sub></th>
       
-          <th class="version">0.4.0<sub>62%</sub></th>
+          <th class="version">0.4.0<sub>63%</sub></th>
       
-          <th class="version">0.3.11<sub>62%</sub></th>
+          <th class="version">0.3.11<sub>60%</sub></th>
       
-          <th class="version">0.3.10<sub>50%</sub></th>
+          <th class="version">0.3.10<sub>48%</sub></th>
       
-          <th class="version">0.3.9<sub>50%</sub></th>
+          <th class="version">0.3.9<sub>48%</sub></th>
       
-          <th class="version">0.3.8<sub>48%</sub></th>
+          <th class="version">0.3.8<sub>47%</sub></th>
       
-          <th class="version">0.3.7<sub>48%</sub></th>
+          <th class="version">0.3.7<sub>47%</sub></th>
       
-          <th class="version">0.3.6<sub>48%</sub></th>
+          <th class="version">0.3.6<sub>47%</sub></th>
       
-          <th class="version">0.3.5<sub>48%</sub></th>
+          <th class="version">0.3.5<sub>46%</sub></th>
       
-          <th class="version">0.3.4<sub>45%</sub></th>
+          <th class="version">0.3.4<sub>43%</sub></th>
       
-          <th class="version">0.3.3<sub>45%</sub></th>
+          <th class="version">0.3.3<sub>43%</sub></th>
       
-          <th class="version">0.3.2<sub>45%</sub></th>
+          <th class="version">0.3.2<sub>43%</sub></th>
       </tr>
     </table>
   </header>
   <article id="top">
     
+          <table class="results">
+            <caption>
+              <h2 class="category">
+                <div class="hash" id="hr-time"></div>
+                <a href="#hr-time">hr-time</a>
+              </h2>
+            </caption>
+            
+                  <tr>
+                    <td
+                      class="feature sub"
+                      colspan="16"
+                    >
+                      <h3>
+                        <div class="hash" id="hr-time-basic-any-js"></div>
+                        <a href="#hr-time-basic-any-js">basic.any.js</a>
+                      </h3>
+                    </td>
+                  </tr>
+                  
+                        <tr>
+                          <td class="feature subsub">
+                            <div class="hash" id="hr-time-basic-any-js-self-performance-now---is-a-function-that-returns-a-number"></div>
+                            <a href="#hr-time-basic-any-js-self-performance-now---is-a-function-that-returns-a-number"
+                              >self.performance.now() is a function that returns a number</a
+                            >
+                            <div class="info">
+                              ?
+                              <div class="fn">
+                                <div class="code">function() {
+  assert_true((self.performance !== undefined), "self.performance exists");
+  assert_equals(typeof self.performance, "object", "self.performance is an object");
+  assert_equals((typeof self.performance.now), "function", "self.performance.now() is a function");
+  assert_equals(typeof self.performance.now(), "number", "self.performance.now() returns a number");
+}</div>
+                              </div>
+                            </div>
+                          </td>
+                          
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                        </tr>
+                      
+                        <tr>
+                          <td class="feature subsub">
+                            <div class="hash" id="hr-time-basic-any-js-self-performance-now---returns-a-positive-number"></div>
+                            <a href="#hr-time-basic-any-js-self-performance-now---returns-a-positive-number"
+                              >self.performance.now() returns a positive number</a
+                            >
+                            <div class="info">
+                              ?
+                              <div class="fn">
+                                <div class="code">function() {
+  assert_true(self.performance.now() > 0);
+}</div>
+                              </div>
+                            </div>
+                          </td>
+                          
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                        </tr>
+                      
+                        <tr>
+                          <td class="feature subsub">
+                            <div class="hash" id="hr-time-basic-any-js-self-performance-now---difference-is-not-negative"></div>
+                            <a href="#hr-time-basic-any-js-self-performance-now---difference-is-not-negative"
+                              >self.performance.now() difference is not negative</a
+                            >
+                            <div class="info">
+                              ?
+                              <div class="fn">
+                                <div class="code">function() {
+  var now1 = self.performance.now();
+  var now2 = self.performance.now();
+  assert_true((now2-now1) >= 0);
+}</div>
+                              </div>
+                            </div>
+                          </td>
+                          
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                        </tr>
+                      
+                        <tr>
+                          <td class="feature subsub">
+                            <div class="hash" id="hr-time-basic-any-js-High-resolution-time-has-approximately-the-right-relative-magnitude"></div>
+                            <a href="#hr-time-basic-any-js-High-resolution-time-has-approximately-the-right-relative-magnitude"
+                              >High resolution time has approximately the right relative magnitude</a
+                            >
+                            <div class="info">
+                              ?
+                              <div class="fn">
+                                <div class="code">async function() {
+  // Check whether the performance.now() method is close to Date() within 30ms (due to inaccuracies)
+  var initial_hrt = self.performance.now();
+  var initial_date = Date.now();
+  await new Promise((resove) => {
+    setTimeout(() => {
+      var final_hrt = self.performance.now();
+      var final_date = Date.now();
+      assert_approx_equals(final_hrt - initial_hrt, final_date - initial_date, 30, 'High resolution time value increased by approximately the same amount as time from date object');
+      resove();
+    }, 2000);
+  });
+}</div>
+                              </div>
+                            </div>
+                          </td>
+                          
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                        </tr>
+                      
+                
+                  <tr>
+                    <td
+                      class="feature sub"
+                      colspan="16"
+                    >
+                      <h3>
+                        <div class="hash" id="hr-time-monotonic-clock-any-js"></div>
+                        <a href="#hr-time-monotonic-clock-any-js">monotonic-clock.any.js</a>
+                      </h3>
+                    </td>
+                  </tr>
+                  
+                        <tr>
+                          <td class="feature subsub">
+                            <div class="hash" id="hr-time-monotonic-clock-any-js-self-performance-now---returns-a-positive-number"></div>
+                            <a href="#hr-time-monotonic-clock-any-js-self-performance-now---returns-a-positive-number"
+                              >self.performance.now() returns a positive number</a
+                            >
+                            <div class="info">
+                              ?
+                              <div class="fn">
+                                <div class="code">function() {
+  assert_true(self.performance.now() > 0, "self.performance.now() returns positive numbers");
+}</div>
+                              </div>
+                            </div>
+                          </td>
+                          
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                        </tr>
+                      
+                        <tr>
+                          <td class="feature subsub">
+                            <div class="hash" id="hr-time-monotonic-clock-any-js-self-performance-now---difference-is-not-negative"></div>
+                            <a href="#hr-time-monotonic-clock-any-js-self-performance-now---difference-is-not-negative"
+                              >self.performance.now() difference is not negative</a
+                            >
+                            <div class="info">
+                              ?
+                              <div class="fn">
+                                <div class="code">function() {
+    var now1 = self.performance.now();
+    var now2 = self.performance.now();
+    assert_true((now2-now1) >= 0, "self.performance.now() difference is not negative");
+  }</div>
+                              </div>
+                            </div>
+                          </td>
+                          
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                <div class="Yes" title="Test passed">Yes</div>
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                              <td class="result">
+                                -
+                              </td>
+                            
+                        </tr>
+                      
+                
+          </table>
+        
           <table class="results">
             <caption>
               <h2 class="category">
