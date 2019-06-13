@@ -127,20 +127,30 @@ function same_value<T>(x: any, y: any): boolean {
 }
 
 function assert_equals(actual: any, expected: any, description?: string): void {
-  /*
-   * Test if two primitives are equal or two objects
-   * are the same object
-   */
+  let actualString: string;
+  let expectedString: string;
+  try {
+    actualString = String(actual);
+  } catch (e) {
+    actualString = "[Cannot display]";
+  }
+
+  try {
+    expectedString = String(expected);
+  } catch (e) {
+    expectedString = "[Cannot display]";
+  }
+
   if (typeof actual != typeof expected) {
     assert(
       false,
-      `expected (${typeof expected}) ${expected} but got (${typeof actual}) ${actual}`
+      `expected (${typeof expected}) ${actualString} but got (${typeof actual}) ${expectedString}`
     );
     return;
   }
   assert(
     same_value(actual, expected),
-    `expected ${expected} but got ${actual}`
+    `expected ${actualString} but got ${expectedString}`
   );
 }
 expose(assert_equals, "assert_equals");
