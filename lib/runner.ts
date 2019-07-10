@@ -1,10 +1,10 @@
 import "./asserts.ts";
 import "./polyfill.ts";
-import { green, red } from "https://deno.land/x/colors/mod.ts";
+import { green, red } from "https://deno.land/std/colors/mod.ts";
 import {
   TestDefinition,
   TestFunction
-} from "https://deno.land/x/testing/mod.ts";
+} from "https://deno.land/std/testing/mod.ts";
 import { AssertionError, fail } from "https://deno.land/std/testing/asserts.ts";
 
 export const RESULT_PATH = "result";
