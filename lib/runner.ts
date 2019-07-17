@@ -30,7 +30,7 @@ export type Result = {
 
 const result: TestResult = {
   _passed: 0,
-  _failed: 0,
+  _failed: 0
 };
 
 const testers: Testers = {};
@@ -42,7 +42,7 @@ declare global {
   function setup(spec?: string): void;
 }
 
-window["setup"] = function(spec: string = ''): void {
+window["setup"] = function(spec: string = ""): void {
   window["test"] = function test(fn: TestFunction, name?: string): void {
     if (!name) {
       name = fn.name;

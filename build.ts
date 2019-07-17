@@ -33,7 +33,7 @@ function result(nodeVersion: string, path: string): string {
 
 function percent(nodeVersion: string): number {
   const data = get(results, nodeVersion, KEY);
-  return data ? Math.floor(data._passed / count * 100) : 0;
+  return data ? Math.floor((data._passed / count) * 100) : 0;
 }
 
 function compare(x1: string, x2: string): number {
