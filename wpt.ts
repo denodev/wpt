@@ -22,11 +22,15 @@ async function main() {
       await p.status();
       break;
     case "run":
-      const specs = Deno.readDirSync("./spec").filter(
-        x => x.isDirectory() && !ignore.includes(x.name)
+      const specs = Deno.readDirSync("./spec").sort((x, y) =>
+        x.name > y.name ? 1 : -1
       );
 
       for (const spec of specs) {
+        if (!spec.isDirectory() || ignore.includes(spec.name)) {
+          continue;
+        }
+
         const specPath = `./spec/${spec.name}`;
         console.log(specPath);
         const files = Deno.readDirSync(specPath).filter(
