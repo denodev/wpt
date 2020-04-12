@@ -1,15 +1,11 @@
 import "./asserts.ts";
 import "./polyfill.ts";
-import { green, red } from "https://deno.land/std/colors/mod.ts";
-import {
-  TestDefinition,
-  TestFunction
-} from "https://deno.land/std/testing/mod.ts";
+import { green, red } from "https://deno.land/std/fmt/colors.ts";
 import { AssertionError, fail } from "https://deno.land/std/testing/asserts.ts";
 
 export const RESULT_PATH = "result";
 
-const tests: TestDefinition[] = [];
+const tests: Deno.TestDefinition[] = [];
 
 export interface TestResult {
   _passed: number;
@@ -30,20 +26,23 @@ export type Result = {
 
 const result: TestResult = {
   _passed: 0,
-  _failed: 0
+  _failed: 0,
 };
 
 const testers: Testers = {};
 
 declare global {
-  function test(fn: TestFunction, name?: string): void;
-  function promise_test(fn: TestFunction, name?: string): void;
-  function async_test(fn: TestFunction, name?: string): void;
+  function test(fn: () => void | Promise<void>, name?: string): void;
+  function promise_test(fn: () => void | Promise<void>, name?: string): void;
+  function async_test(fn: () => void | Promise<void>, name?: string): void;
   function setup(spec?: string): void;
 }
 
-window["setup"] = function(spec: string = ""): void {
-  window["test"] = function test(fn: TestFunction, name?: string): void {
+window["setup"] = function (spec: string = ""): void {
+  window["test"] = function test(
+    fn: () => void | Promise<void>,
+    name?: string,
+  ): void {
     if (!name) {
       name = fn.name;
     }
@@ -57,7 +56,7 @@ window["setup"] = function(spec: string = ""): void {
   window["async_test"] = window["test"];
 };
 
-function addTest(fn: TestFunction, name: string): void {
+function addTest(fn: () => void | Promise<void>, name: string): void {
   result[name] = undefined;
   testers[name] = fn.toString();
 }
@@ -71,7 +70,7 @@ function reportJson(): void {
     version: deno,
     v8,
     typescript,
-    result
+    result,
   };
   const encoder = new TextEncoder();
   const data = encoder.encode(JSON.stringify(json, null, "  "));
@@ -88,11 +87,13 @@ function printResults(): void {
   // Attempting to match the output of Rust's test runner.
   console.log(
     `\ntest result: ${result._failed ? RED_FAILED : GREEN_OK}. ` +
-      `${result._passed} passed; ${result._failed} failed\n`
+      `${result._passed} passed; ${result._failed} failed\n`,
   );
 }
 
-export async function runTestsSerial(tests: TestDefinition[]): Promise<void> {
+export async function runTestsSerial(
+  tests: Deno.TestDefinition[],
+): Promise<void> {
   for (const { fn, name } of tests) {
     try {
       await fn();

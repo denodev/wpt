@@ -1,8 +1,8 @@
 import { get, objectifiedTesters, escape } from "./utils.ts";
 import { render } from "./template.ts";
 
-const results = {};
-const headers = {};
+const results: Record<string, any> = {};
+const headers: Record<string, any> = {};
 
 const KEY = "result";
 
@@ -20,14 +20,14 @@ function result(nodeVersion: string, path: string): string {
     return '<div class="No">-</div>';
   }
 
-  const title =
-    result === true
-      ? "Test passed"
-      : typeof result === "string"
+  const title = result === true
+    ? "Test passed"
+    : typeof result === "string"
       ? result
       : "Test failed";
-  result =
-    result === true ? "Yes" : typeof result === "string" ? "Error" : "No";
+  result = result === true
+    ? "Yes"
+    : typeof result === "string" ? "Error" : "No";
   return `<div class="${result}" title="${escape(title)}">${result}</div>`;
 }
 
@@ -37,8 +37,8 @@ function percent(nodeVersion: string): number {
 }
 
 function compare(x1: string, x2: string): number {
-  const y1 = x1.split(".").map(x => parseInt(x));
-  const y2 = x2.split(".").map(x => parseInt(x));
+  const y1 = x1.split(".").map((x) => parseInt(x));
+  const y2 = x2.split(".").map((x) => parseInt(x));
 
   for (let i = 0; i < y1.length; i++) {
     if (y1[i] === y2[i]) {
@@ -53,23 +53,23 @@ function compare(x1: string, x2: string): number {
   return 0;
 }
 
-export default function build() {
-  const files = Deno.readDirSync("./result").filter(
-    x => x.isFile() && x.name.substr(-5) === ".json"
+export default async function build() {
+  const files = (await Deno.readdir("./result")).filter(
+    (x) => x.isFile() && x.name!.substr(-5) === ".json",
   );
 
-  const versions = files.map(x => x.name.replace(/\.json/, ""));
+  const versions = files.map((x) => x.name!.replace(/\.json/, ""));
 
   versions.sort(compare);
 
   for (const version of versions) {
-    const content = Deno.readFileSync(`./result/${version}.json`);
+    const content = await Deno.readFile(`./result/${version}.json`);
     results[version] = JSON.parse(decoder.decode(content));
     headers[version] = {
-      version: results[version].version
+      version: results[version].version,
     };
   }
 
   const html = render({ headers, testers, result, percent });
-  Deno.writeFileSync("./index.html", encoder.encode(html));
+  await Deno.writeFile("./index.html", encoder.encode(html));
 }
