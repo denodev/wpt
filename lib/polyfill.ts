@@ -1,3 +1,2 @@
-window["self"] = window;
-window["i"] = undefined;
-window["param"] = undefined;
+// window["i"] = undefined;
+// window["param"] = undefined;

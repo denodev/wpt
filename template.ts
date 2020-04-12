@@ -37,13 +37,13 @@ export interface TemplateData {
 
 function renderHeaders(
   headers: TemplateHeaders,
-  percent: (nodeVersion: string) => number
+  percent: (nodeVersion: string) => number,
 ): string {
   return Object.entries(headers)
     .map(([nodeVersion, details]) => {
       return html`
           <th class="version">${details.version}<sub>${percent(
-        nodeVersion
+        nodeVersion,
       )}%</sub></th>
       `;
     })
@@ -54,7 +54,7 @@ export function render({
   headers,
   testers,
   result,
-  percent
+  percent,
 }: TemplateData): string {
   return html`<!DOCTYPE html>
 <html lang="en">
@@ -83,9 +83,9 @@ export function render({
   </header>
   <article id="top">
     ${Object.entries(testers)
-      .map(([category, obj1]) => {
-        const category2 = category.replace(/\W/g, "-");
-        return html`
+    .map(([category, obj1]) => {
+      const category2 = category.replace(/\W/g, "-");
+      return html`
           <table class="results">
             <caption>
               <h2 class="category">
@@ -94,12 +94,12 @@ export function render({
               </h2>
             </caption>
             ${Object.entries(obj1)
-              .map(([subcategory, obj2]) => {
-                const subcategory2 = [
-                  category2,
-                  subcategory.replace(/\W/g, "-")
-                ].join("-");
-                return html`
+        .map(([subcategory, obj2]) => {
+          const subcategory2 = [
+            category2,
+            subcategory.replace(/\W/g, "-"),
+          ].join("-");
+          return html`
                   <tr>
                     <td
                       class="feature sub"
@@ -112,12 +112,12 @@ export function render({
                     </td>
                   </tr>
                   ${Object.entries(obj2)
-                    .map(([subsubcategory, obj3]) => {
-                      const subsubcategory2 = [
-                        subcategory2,
-                        subsubcategory.replace(/\W/g, "-")
-                      ].join("-");
-                      return html`
+            .map(([subsubcategory, obj3]) => {
+              const subsubcategory2 = [
+                subcategory2,
+                subsubcategory.replace(/\W/g, "-"),
+              ].join("-");
+              return html`
                         <tr>
                           <td class="feature subsub">
                             <div class="hash" id="${subsubcategory2}"></div>
@@ -132,25 +132,26 @@ export function render({
                             </div>
                           </td>
                           ${Object.keys(headers)
-                            .map(
-                              nodeVersion => html`
+                .map(
+                  (nodeVersion) =>
+                    html`
                               <td class="result">
                                 ${result(nodeVersion, obj3.path)}
                               </td>
-                            `
-                            )
-                            .join("")}
+                            `,
+                )
+                .join("")}
                         </tr>
                       `;
-                    })
-                    .join("")}
+            })
+            .join("")}
                 `;
-              })
-              .join("")}
+        })
+        .join("")}
           </table>
         `;
-      })
-      .join("")}
+    })
+    .join("")}
   </article>
 </body>`;
 }
