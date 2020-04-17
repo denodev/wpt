@@ -54,9 +54,13 @@ function compare(x1: string, x2: string): number {
 }
 
 export default async function build() {
-  const files = (await Deno.readdir("./result")).filter(
-    (x) => x.isFile() && x.name!.substr(-5) === ".json",
-  );
+  const files: Deno.DirEntry[] = [];
+
+  for await (const dirEntry of Deno.readdir("./result")) {
+    if (dirEntry.isFile && dirEntry.name.substr(-5) === ".json") {
+      files.push(dirEntry);
+    }
+  }
 
   const versions = files.map((x) => x.name!.replace(/\.json/, ""));
 

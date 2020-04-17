@@ -22,19 +22,28 @@ async function main() {
       await p.status();
       break;
     case "run":
-      const specs = (await Deno.readdir("./spec")).sort((x, y) =>
-        x.name! > y.name! ? 1 : -1
-      );
+      const specs = [];
 
-      for (const spec of specs) {
-        if (!spec.isDirectory() || ignore.includes(spec.name!)) {
+      for await (const dirEntry of Deno.readdir("./spec")) {
+        specs.push(dirEntry);
+      }
+
+      const specsSorted = specs.sort((x, y) => x.name! > y.name! ? 1 : -1);
+
+      for (const spec of specsSorted) {
+        if (!spec.isDirectory || ignore.includes(spec.name!)) {
+          console.log(spec.name);
           continue;
         }
 
         const specPath = `./spec/${spec.name}`;
-        const files = (await Deno.readdir(specPath)).filter(
-          (x) => x.name!.substr(-7) === ".any.js",
-        );
+        const files: Deno.DirEntry[] = [];
+
+        for await (const dirEntry of Deno.readdir(specPath)) {
+          if (dirEntry.name!.substr(-7) === ".any.js") {
+            files.push(dirEntry);
+          }
+        }
 
         for (const file of files) {
           const filePath = `./spec/${spec.name}/${file.name}`;
