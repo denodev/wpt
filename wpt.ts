@@ -1,6 +1,9 @@
+import { readJson } from "./deps.ts";
+
 import { runTests } from "./lib/runner.ts";
 import build from "./build.ts";
-import ignore from "./ignore.json";
+
+const ignore = await readJson("./ignore.json") as string[];
 
 console.log(`use deno version: ${Deno.version.deno}`);
 
@@ -24,7 +27,7 @@ async function main() {
     case "run":
       const specs = [];
 
-      for await (const dirEntry of Deno.readdir("./spec")) {
+      for await (const dirEntry of Deno.readDir("./spec")) {
         specs.push(dirEntry);
       }
 
@@ -39,7 +42,7 @@ async function main() {
         const specPath = `./spec/${spec.name}`;
         const files: Deno.DirEntry[] = [];
 
-        for await (const dirEntry of Deno.readdir(specPath)) {
+        for await (const dirEntry of Deno.readDir(specPath)) {
           if (dirEntry.name!.substr(-7) === ".any.js") {
             files.push(dirEntry);
           }

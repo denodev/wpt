@@ -1,15 +1,4 @@
-export function html(strings: TemplateStringsArray, ...values: any[]): string {
-  const result: string[] = [];
-
-  for (let i = 0; i < strings.length; i++) {
-    result.push(strings[i]);
-    if (values.length > i) {
-      result.push(String(values[i]));
-    }
-  }
-
-  return result.join("");
-}
+import { html } from "./deps.ts";
 
 export interface TemplateHeaders {
   [key: string]: {

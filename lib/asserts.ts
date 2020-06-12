@@ -1,7 +1,4 @@
-import {
-  assert as _assert,
-  AssertionError,
-} from "https://deno.land/std/testing/asserts.ts";
+import { assert as _assert, AssertionError } from "../deps.ts";
 
 declare global {
   function assert_true(actual: boolean, description?: string): void;
@@ -650,7 +647,9 @@ function assert_throws(
     for (let prop in required_props) {
       assert(
         prop in e && e[prop] == required_props[prop],
-        `${func} threw ${e} that is not a DOMException ${code}: property ${prop} is equal to ${e[prop]}, expected ${required_props[prop]}`,
+        `${func} threw ${e} that is not a DOMException ${code}: property ${prop} is equal to ${
+          e[prop]
+        }, expected ${required_props[prop]}`,
       );
     }
   }
