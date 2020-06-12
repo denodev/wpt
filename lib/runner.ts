@@ -1,7 +1,7 @@
 import "./asserts.ts";
 import "./polyfill.ts";
-import { green, red } from "https://deno.land/std/fmt/colors.ts";
-import { AssertionError, fail } from "https://deno.land/std/testing/asserts.ts";
+import { green, red } from "../deps.ts";
+import { AssertionError, fail } from "../deps.ts";
 
 export const RESULT_PATH = "result";
 
